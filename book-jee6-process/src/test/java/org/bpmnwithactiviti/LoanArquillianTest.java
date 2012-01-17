@@ -19,8 +19,10 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.history.HistoricDetail;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.OperateOnDeployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.formatter.Formatters;
@@ -28,23 +30,20 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 @RunWith(Arquillian.class)
 public class LoanArquillianTest {
     final static String LOAN_PROCESS_DEFINITION_KEY = "jee6";
 
-    @Deployment
+
     public static Archive<?> createTestArchive() throws IOException {
-        JavaArchive webArchive = ShrinkWrap
-                .create(JavaArchive.class, "wichtig.jar")
-                .setManifest("META-INF/MANIFEST.MF")
-                .addAsResource(EmptyAsset.INSTANCE, "beans.xml");
-        webArchive.writeTo(new FileOutputStream(new File("D:/war.war")), Formatters.VERBOSE);
-        ;
-        return webArchive;
+        return ShrinkWrap.create(JavaArchive.class, "test.jar")
+                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("processes.xml"))
+                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml")).
+                        addAsResource("jee6.bpmn20.xml");
     }
 
-    @EJB(lookup = "java:global/processEngine/default")
+    //@EJB(lookup = "java:global/processEngine/default")
+    @Inject
     private ProcessEngine processEngine;
   /*  @Inject
     private Logger log;
@@ -52,6 +51,7 @@ public class LoanArquillianTest {
     @Test
     public void test() {
         Map<String, Object> processVariables = new HashMap<String, Object>();
+
        /* processVariables.put("name", "Miss Piggy");
 
         processVariables.put("orderType", "BestellungMail");
