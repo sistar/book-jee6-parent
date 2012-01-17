@@ -1,69 +1,263 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.bpmnwithactiviti</groupId>
-    <artifactId>book-jee6-parent</artifactId>
-    <packaging>pom</packaging>
-    <version>1.0.0</version>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.bpmnwithactiviti</groupId>
+	<artifactId>book-jee6-parent</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.0</version>
 
-    <name>Activiti in Action - JEE6</name>
+	<name>Activiti in Action - JEE6</name>
 
-    <properties>
-        <activiti.version>5.8</activiti.version>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javaee6.web.spec.version>2.0.0.Final</javaee6.web.spec.version>
+		<activiti.version>5.8</activiti.version>
+	</properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <inherited>true</inherited>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <optimize>false</optimize>
-                    <debug>true</debug>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<optimize>false</optimize>
+					<debug>true</debug>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-    <modules>
-        <module>book-jee6-ejb</module>
-        <module>book-jee6-process</module>
-        <module>book-jee6-soap-fe</module>
-    </modules>
+	<modules>
+		<module>book-jee6-ejb</module>
+		<module>book-jee6-process</module>
+		<module>book-jee6-soap-fe</module>
+		<module>contract</module>
+	</modules>
 
-    <repositories>
-        <repository>
-            <id>Activiti</id>
-            <url>http://maven.alfresco.com/nexus/content/repositories/activiti/</url>
-        </repository>
-    </repositories>
+	<repositories>
+		<repository>
+			<id>Activiti</id>
+			<url>http://maven.alfresco.com/nexus/content/repositories/activiti/</url>
+		</repository>
+	</repositories>
 
 
-    <dependencyManagement>
-        <dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.bpmnwithactiviti</groupId>
+				<artifactId>book-jee6-process</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-engine</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.activiti</groupId>
+				<artifactId>activiti-cdi</artifactId>
+				<version>${activiti.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.groovy</groupId>
+				<artifactId>groovy-all</artifactId>
+				<version>1.8.0</version>
+				<scope>provided</scope>
+			</dependency>
+			<!-- JBoss distributes a complete set of Java EE 6 APIs including a Bill 
+				of Materials (BOM). A BOM specifies the versions of a "stack" (or a collection) 
+				of artifacts. We use this here so that we always get the correct versions 
+				of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can read this 
+				as the JBoss stack of the Java EE Web Profile 6 APIs) -->
+			<dependency>
+				<groupId>org.jboss.spec</groupId>
+				<artifactId>jboss-javaee-web-6.0</artifactId>
+				<version>${javaee6.web.spec.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
             <dependency>
-                <groupId>org.bpmnwithactiviti</groupId>
-                <artifactId>book-jee6-process</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-test-api</artifactId>
+                <version>1.0.0.CR7</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.activiti</groupId>
-                <artifactId>activiti-engine</artifactId>
-                <version>${activiti.version}</version>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-test-spi</artifactId>
+                <version>1.0.0.CR7</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>6.0</version>
-                <scope>provided</scope>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-spi</artifactId>
+                <version>1.0.0.CR7</version>
+                <scope>test</scope>
             </dependency>
-        </dependencies>
-    </dependencyManagement>
+            <dependency>
+                <groupId>org.jboss.arquillian.config</groupId>
+                <artifactId>arquillian-config-impl-base</artifactId>
+                <version>1.0.0.CR7</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.config</groupId>
+                <artifactId>arquillian-config-api</artifactId>
+                <version>1.0.0.CR7</version>
+                <scope>test</scope>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+	<profiles>
+		<profile>
+			<!-- The default profile skips all tests, though you can tune it to run 
+				just unit tests based on a custom pattern -->
+			<!-- Seperate profiles are provided for running all tests, including Arquillian 
+				tests that execute in the specified container -->
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.4.3</version>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<!-- We add the JBoss repository as we need the JBoss AS connectors for 
+				Arquillian -->
+			<repositories>
+				<!-- The JBoss Community public repository is a composite repository 
+					of several major repositories -->
+				<!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+				<repository>
+					<id>jboss-public-repository</id>
+					<name>JBoss Repository</name>
+					<url>http://repository.jboss.org/nexus/content/groups/public</url>
+					<!-- These optional flags are designed to speed up your builds by reducing 
+						remote server calls -->
+					<releases>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+
+			<pluginRepositories>
+				<pluginRepository>
+					<id>jboss-public-repository</id>
+					<name>JBoss Repository</name>
+					<url>http://repository.jboss.org/nexus/content/groups/public</url>
+					<releases>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+
+			<!-- An optional Arquillian testing profile that executes tests in your 
+				JBoss AS instance -->
+			<!-- This profile will start a new JBoss AS instance, and execute the 
+				test, shutting it down when done -->
+			<!-- Run with: mvn clean test -Parq-jbossas-managed -->
+			<id>arq-jbossas-managed</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.as</groupId>
+					<artifactId>jboss-as-arquillian-container-managed</artifactId>
+					<version>7.1.0.CR1</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- We add the JBoss repository as we need the JBoss AS connectors for 
+				Arquillian -->
+			<repositories>
+				<!-- The JBoss Community public repository is a composite repository 
+					of several major repositories -->
+				<!-- see http://community.jboss.org/wiki/MavenGettingStarted-Users -->
+				<repository>
+					<id>jboss-public-repository</id>
+					<name>JBoss Repository</name>
+					<url>http://repository.jboss.org/nexus/content/groups/public</url>
+					<!-- These optional flags are designed to speed up your builds by reducing 
+						remote server calls -->
+					<releases>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+
+			<pluginRepositories>
+				<pluginRepository>
+					<id>jboss-public-repository</id>
+					<name>JBoss Repository</name>
+					<url>http://repository.jboss.org/nexus/content/groups/public</url>
+					<releases>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+
+			<!-- An optional Arquillian testing profile that executes tests in a remote 
+				JBoss AS instance -->
+			<!-- Run with: mvn clean test -Parq-jbossas-remote -->
+			<id>arq-jbossas-remote</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.as</groupId>
+					<artifactId>jboss-as-arquillian-container-remote</artifactId>
+					<version>7.1.0.CR1</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		<profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when 
+				invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app 
+				will need. -->
+			<!-- By default that is to put the resulting archive into the 'deployments' 
+				folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.1.1</version>
+						<configuration>
+							<outputDirectory>deployments</outputDirectory>
+							<warName>ROOT</warName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
 

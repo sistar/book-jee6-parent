@@ -31,6 +31,7 @@
         <!--
       <javaee6.web.spec.version>3.0.0.Beta1-redhat-1</javaee6.web.spec.version> 
       -->
+        <spring-version>3.0.5.RELEASE</spring-version>
     </properties>
 
     <dependencyManagement>
@@ -53,15 +54,29 @@
     <dependencies>
         <dependency>
             <groupId>org.bpmnwithactiviti</groupId>
-            <artifactId>book-jee6-process</artifactId>
-            <version>1.0.0</version>
+            <artifactId>contract</artifactId>
+            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.bpmnwithactiviti</groupId>
             <artifactId>book-jee6-ejb</artifactId>
             <version>1.0.0</version>
             <scope>provided</scope>
+        </dependency>
+            -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-cdi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-version}</version>
         </dependency>
 
         <!-- First declare the APIs we depend on and need for compilation.
@@ -148,14 +163,14 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.0.0.CR4</version>
+            <version>1.0.0.CR7</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
-            <version>1.0.0.CR4</version>
+            <version>1.0.0.CR7</version>
             <scope>test</scope>
         </dependency>
 
@@ -182,10 +197,14 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Dependencies>deployment.book-jee6-process.jar,deployment.book-jee6-ejb.jar</Dependencies>
+                            <Dependencies>org.junit,org.activiti.cdi export,org.activiti.engine
+                                export,deployment.contract.jar
+                            </Dependencies>
                         </manifestEntries>
                     </archive>
-                   <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+                    <!--        <Dependencies>deployment.book-jee6-process.jar,deployment.book-jee6-ejb.jar</Dependencies>
+                    -->
+                    <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
@@ -195,7 +214,7 @@
             <plugin>
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
-                <version>7.1.0.Beta1b</version>
+                <version>7.1.0.CR1</version>
             </plugin>
         </plugins>
     </build>

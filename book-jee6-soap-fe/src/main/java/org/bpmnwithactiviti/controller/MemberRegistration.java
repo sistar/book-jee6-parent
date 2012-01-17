@@ -1,8 +1,10 @@
 package org.bpmnwithactiviti.controller;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Model;
@@ -11,6 +13,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 
+import org.activiti.engine.ProcessEngine;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.bpmnwithactiviti.model.Member;
 
 // The @Stateful annotation eliminates the need for manual transaction demarcation
@@ -22,32 +27,47 @@ import org.bpmnwithactiviti.model.Member;
 @Model
 public class MemberRegistration {
 
-   @Inject
-   private Logger log;
+    @EJB(lookup="java:global/processEngine/default")
+    private ProcessEngine processEngine;
 
-   @Inject
-   private EntityManager em;
+    @Inject
+    private Logger log;
 
-   @Inject
-   private Event<Member> memberEventSrc;
+    @Inject
+    private EntityManager em;
 
-   private Member newMember;
+    @Inject
+    private Event<Member> memberEventSrc;
 
-   @Produces
-   @Named
-   public Member getNewMember() {
-      return newMember;
-   }
+    private Member newMember;
 
-   public void register() throws Exception {
-      log.info("Registering " + newMember.getName());
-      em.persist(newMember);
-      memberEventSrc.fire(newMember);
-      initNewMember();
-   }
+    @Produces
+    @Named
+    public Member getNewMember() {
+        return newMember;
+    }
 
-   @PostConstruct
-   public void initNewMember() {
-      newMember = new Member();
-   }
+    public RepositoryService getRepositoryService(){
+        return processEngine.getRepositoryService();
+    }
+
+    @Produces
+    @Named
+    public List<ProcessDefinition> getProcessDefinitionList(){
+        return getRepositoryService().createProcessDefinitionQuery().list();
+    }
+
+    public void register() throws Exception {
+        log.info("Registering " + newMember.getName());
+        em.persist(newMember);
+        memberEventSrc.fire(newMember);
+        initNewMember();
+    }
+
+    @PostConstruct
+    public void initNewMember() {
+        newMember = new Member();
+    }
+
+
 }

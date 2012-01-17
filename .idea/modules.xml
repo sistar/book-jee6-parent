@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/book-jee6-ejb/book-jee6-ejb.iml" filepath="$PROJECT_DIR$/book-jee6-ejb/book-jee6-ejb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/book-jee6-parent.iml" filepath="$PROJECT_DIR$/book-jee6-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/book-jee6-process/book-jee6-process.iml" filepath="$PROJECT_DIR$/book-jee6-process/book-jee6-process.iml" />
+      <module fileurl="file://$PROJECT_DIR$/book-jee6-soap-fe/book-jee6-soap-fe.iml" filepath="$PROJECT_DIR$/book-jee6-soap-fe/book-jee6-soap-fe.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contract/contract.iml" filepath="$PROJECT_DIR$/contract/contract.iml" />
+    </modules>
+  </component>
+</project>
+

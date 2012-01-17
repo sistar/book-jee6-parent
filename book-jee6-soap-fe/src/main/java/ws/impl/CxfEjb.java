@@ -10,13 +10,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.ws.WebServiceContext;
 
-/**
- * Created by IntelliJ IDEA.
- * User: RSI
- * Date: 22.12.11
- * Time: 14:18
- * To change this template use File | Settings | File Templates.
- */
+
 @WebService(name = "wsName", targetNamespace = "http://ws/",serviceName = "helloService")
 @Stateless
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
