@@ -1,19 +1,22 @@
 package org.bpmnwithactiviti.jee6.task;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.logging.Logger;
+
 @Named
 public class BeerOrderTask {
-	Log log = LogFactory.getLog(this.getClass());
-	@Inject
+    Logger log = Logger.getLogger(this.getClass().getName());
+
+    @Inject
 	private Party party;
 
 	public void order() {
 		log.info("ordering " + party.getWantedBeers() + " beers.");
+
 
 	}
 }
