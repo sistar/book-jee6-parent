@@ -18,8 +18,8 @@ public class HelloDelegate implements JavaDelegate {
     
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        //helloBean.sayHello((String) execution.getVariable("name"));
-       log.info((String) execution.getVariable("name"));
+       helloBean.sayHello((String) execution.getVariable("name"));
+       log.info(" process variable - name:" + execution.getVariable("name"));
     }
 
 }

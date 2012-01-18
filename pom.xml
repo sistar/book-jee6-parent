@@ -38,7 +38,8 @@
 		<module>book-jee6-process</module>
 		<module>book-jee6-soap-fe</module>
 		<module>contract</module>
-	</modules>
+        <module>integration-test</module>
+    </modules>
 
 	<repositories>
 		<repository>
