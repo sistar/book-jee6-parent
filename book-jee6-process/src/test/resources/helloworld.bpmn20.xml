@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             targetNamespace="http://www.bpmnwithactiviti.org">
+    <process id="helloworld" name="Hello World">
+        <startEvent id="startevent1" name="Start"></startEvent>
+        <endEvent id="endevent1" name="End"></endEvent>
+        <sequenceFlow id="sequenceflow1" name="" sourceRef="startevent1" targetRef="endevent1"></sequenceFlow>
+    </process>
+</definitions>
