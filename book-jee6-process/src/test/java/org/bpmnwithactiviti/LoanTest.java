@@ -1,12 +1,11 @@
 package org.bpmnwithactiviti;
+
 import org.activiti.engine.history.HistoricDetail;
-import org.activiti.engine.impl.persistence.entity.HistoricVariableUpdateEntity;
 import org.activiti.engine.test.ActivitiRule;
 import org.activiti.engine.test.Deployment;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.junit.Rule;
 
 import java.util.HashMap;
@@ -15,7 +14,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertNotNull;
 
-public class LoanTest extends AbstractTest {
+public class LoanTest {
 	Log log = LogFactory.getLog(this.getClass());
     final static String LOAN_PROCESS_DEFINITION_KEY ="jee6";
     @Rule

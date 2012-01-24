@@ -39,6 +39,7 @@
 		<module>book-jee6-soap-fe</module>
 		<module>contract</module>
         <module>integration-test</module>
+        <module>spring-arquillian</module>
     </modules>
 
 	<repositories>
@@ -96,6 +97,7 @@
                 <version>1.0.0.CR7</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-spi</artifactId>
@@ -112,6 +114,18 @@
                 <groupId>org.jboss.arquillian.config</groupId>
                 <artifactId>arquillian-config-api</artifactId>
                 <version>1.0.0.CR7</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-api</artifactId>
+                <version>1.0.0-cr-2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.shrinkwrap</groupId>
+                <artifactId>shrinkwrap-spi</artifactId>
+                <version>1.0.0-cr-2</version>
                 <scope>test</scope>
             </dependency>
 		</dependencies>
